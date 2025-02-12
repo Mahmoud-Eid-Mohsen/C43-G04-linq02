@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Numerics;
+using System.Threading;
 using  static Assigment.Data.ListGenerator;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 namespace Assigment
 {
     internal class Program
@@ -103,6 +104,43 @@ namespace Assigment
             Console.WriteLine(Result3);
 
 
+
+
+            #endregion
+            #region Set Operators
+            //1. Find the unique Category names from Product List
+            var uniqueCategorynames = ProductsList.Select(p => p.Category).Distinct().ToList();
+            
+            
+
+
+
+            //2. Produce a Sequence containing the unique first letter from both
+            //product and customer names.
+            var UFLProductCustomer = ProductsList.Select(p => p.ProductName[0]).Concat(CustomersList.Select(c => c.CustomerName[0])).Distinct();
+
+
+            //3. Create one sequence that contains the common
+            //first letter from both product and customer names.
+             UFLProductCustomer = ProductsList.Select(p => p.ProductName[0]).Intersect(CustomersList.Select(c => c.CustomerName[0]));
+
+
+
+            //4. Create one sequence that contains the first letters of product names that are not
+            //also first letters of customer names
+            UFLProductCustomer = ProductsList.Select(p => p.ProductName[0]).Except(CustomersList.Select(c => c.CustomerName[0]));
+
+
+
+            //5.Create one sequence that contains the last Three Characters in each name of all
+            //customers and products, including any duplicates
+
+
+            var lastthree = ProductsList.Select(p => p.ProductName.Length >= 3 ? p.ProductName.Substring(p.ProductName.Length - 3) : p.ProductName)
+                .Concat(CustomersList.Select(c => c.CustomerName.Length >= 3 ? c.CustomerName.Substring(c.CustomerName.Length - 3) : c.CustomerName));
+            var n = ProductsList.Select(p => p.ProductName);
+            foreach (var item in lastthree)
+                Console.WriteLine(item);
 
 
             #endregion
